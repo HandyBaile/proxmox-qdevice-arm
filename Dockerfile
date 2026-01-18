@@ -1,4 +1,4 @@
-FROM debian:bookworm-slim
+FROM arm64v8/debian:bookworm-slim
 
 RUN apt update \
     && apt -y upgrade \
