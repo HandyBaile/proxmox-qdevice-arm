@@ -1,30 +1,30 @@
 services:
-  qnetd:
-    container_name: proxmox-qdevice
-    image: bcleonard/proxmox-qdevice:v2.0
-    build: .
+  proxmox-qdevice:
+    build:
+      context: https://github.com/HandyBaile/proxmox-qdevice-arm.git
+      dockerfile: Dockerfile
     ports:
       - "22:22"
       - "5403:5403"
     environment:
-      - VAR=example
+      - NEW_ROOT_PASSWORD=<password>      # Remove After First Run (ex: 1234pass)
     volumes:
       - /run/sshd
-      - <MY LOCAL STORAGE>:/etc/corosync
+      - <local_storage>:/etc/corosync     # Local Sorage Location  (ex: ./data)
     restart: unless-stopped
-    hostname: <MY FQDN>
+    hostname: qdevice
     networks: 
       vlan:
-        ipv4_address: <MY IP ADDRESS>
+        ipv4_address: <aaa.bbb.ccc.ddd>   # Container IP Address   (ex: 10.11.12.102)
 
 networks:
  vlan:
     driver: macvlan
     driver_opts:
-      parent: <MY ETHERNET DEVICE>
+      parent: <dev>                       # Host Network Device    (ex: eth0) 
     ipam:
        driver: default
        config:
-        - subnet: "<MY SUBNET/MY RANGE"
-          ip_range: "<MY IP ADDRESS (same as above)>/32"
-          gateway: "<MY GATEWAY>"
+        - subnet: <aaa.bbb.ccc.ddd/eee>   # Subnet IP Address      (ex: 10.11.12.0/24)
+          ip_range: <aaa.bbb.ccc.ddd>/32" # Container IP Address   (ex: 10.11.12.123/32)
+          gateway: <aaa.bbb.ccc.ddd>      # Gateway IP Address     (ex: 10.11.12.254)
