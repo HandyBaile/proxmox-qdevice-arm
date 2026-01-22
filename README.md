@@ -1,3 +1,26 @@
+# Qucik Start
+## 1. QDevice Install
+```bash
+mkdir qdevice
+cd qdevice
+wget https://raw.githubusercontent.com/HandyBaile/proxmox-qdevice-arm/refs/heads/arm/docker-compose.yml
+nano docker-compose.yml # Edit the file to match your setup
+docker compose up -d
+```
+**DON'T FORGET REMOVE THE PASSWORD FROM THE `docker-compose.yml` FILE**
+## 2.Proxmox Setup
+**On each Proxmox Node**
+```bash
+apt update
+apt install corosync-qdevice
+```
+**On one of the Proxmox Node**
+```bash
+pvecm qdevice setup <container-ip>
+```
+<details>
+  <summary>Original README</summary>
+
 # Proxmox Qdevice
 
 This repository will allow you build and deploy a docker container for use with a proxmox cluster as an external qdevice.  Properly configured proxmox clusters require an odd number servers in the cluster.   In the event that you have an even number of proxmox servers (like 2, such as I have), you need an another device to vote.   Proxmox supports this by allow you to configure a qdevice for an external vote.
@@ -87,3 +110,4 @@ When I started looking at how to install & configure an external qdevice in a do
 
 * [Proxmox VE 7 Corosync QDevice in a Docker container](https://raymii.org/s/tutorials/Proxmox_VE_7_Corosync_QDevice_in_Docker.html)
 * [Dockerized Corosync QNet Daemon](https://github.com/modelrockettier/docker-corosync-qnetd)
+</details>
