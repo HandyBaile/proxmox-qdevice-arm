@@ -1,4 +1,4 @@
-# Qucik Start
+# Quick Start
 ## 1. QDevice Install
 ```bash
 mkdir qdevice
